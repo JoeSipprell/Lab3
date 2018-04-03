@@ -1,5 +1,4 @@
 package com.company;
-import java.io.InputStream;
 import java.util.Scanner;
 
 public class Main {
@@ -8,6 +7,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         passwordEntry(input);
+
 
     }
 
@@ -30,7 +30,7 @@ public class Main {
                 if(Character.isDigit(c)){
                     hasNum = true;
                 }
-                if(Character.isUpperCase(c)){
+                if(Character.isUpperCase(c) && Character.isLetter(c)){
                     hasUpp = true;
                 }
                 if(Character.isLowerCase(c)){
