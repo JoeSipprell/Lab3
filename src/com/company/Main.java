@@ -1,6 +1,7 @@
 package com.company;
 import java.util.Scanner;
 
+
 public class Main {
 
     public static void main(String[] args) {
@@ -8,7 +9,8 @@ public class Main {
 
         //passwordEntry(input);
         //wordCount(input);
-        phoneNumberGen(input);
+        //phoneNumberGen(input);
+        idGen(input);
 
     }
 
@@ -78,7 +80,7 @@ public class Main {
         while(!numEntered.equals("999")){
             numEntered = input.nextLine().trim();
 
-            if(numEntered.equals("999")) { break; }
+            if(numEntered.equals("999")) { break; } // if user enters sentinel value
 
             if(numEntered.length() == 10){
                 try{
@@ -101,5 +103,86 @@ public class Main {
                 System.err.println("Your input needs to be 10 digits long");
             }
         }
+    } // end of phoneNumberGen
+
+    private static void idGen(Scanner input){
+        System.out.println("ID Generator");
+
+
+        while (true) {
+            System.out.print("Please enter your full name (enter '999' to quit): ");
+            String nameIn = input.nextLine().trim();
+
+            if(nameIn.equals("999")) { break; }
+
+            System.out.print("Please enter your street: ");
+            String addressIn = input.nextLine();
+
+
+
+
+            String idOut = createID(nameIn, addressIn);
+
+            if(idOut.contains("noinitials")){
+                System.err.println("Error: No name detected from input");
+            }
+            if(idOut.contains("nodigits")){
+                System.err.println("Error: No address was detected from input");
+            }
+            if(!idOut.contains("noinitials") && !idOut.contains("nodigits")) {
+                System.out.println(idOut);
+            }
+            System.out.println("Press enter to create another ID");
+            input.nextLine();
+        }
+    }
+
+    public static String createID(String fullName, String address)
+    {
+        String outString = "";
+        boolean foundInitials = false, foundDigits = false;
+
+        String[] fName = fullName.replace('-',' ').split("\\s");
+
+        char[] addressChars = address.toCharArray();
+
+        for (String name : fName) {
+            if (!name.isEmpty()) {
+                outString += name.toUpperCase().charAt(0);
+                foundInitials = true;
+            }
+        }
+
+        if(foundInitials == false){
+            outString = "noinitials";
+        }
+
+        for (char digit : addressChars) {
+            if(checkIfNumeric(digit)){
+                outString += digit;
+                foundDigits = true;
+            }
+        }
+
+        if(foundDigits == false){
+            outString += "nodigits";
+        }
+
+
+        return outString;
+    }
+
+    public static Boolean checkIfNumeric(char digit){
+        boolean isNumeric;
+
+        try {
+            int x = Integer.parseInt(""+digit);
+            isNumeric = true;
+        }
+        catch(NumberFormatException e){
+            isNumeric = false;
+        }
+
+        return isNumeric;
     }
 }
