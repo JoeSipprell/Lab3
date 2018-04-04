@@ -6,8 +6,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        passwordEntry(input);
-
+        //passwordEntry(input);
+        wordCount(input);
 
     }
 
@@ -49,5 +49,25 @@ public class Main {
         } // end password entry loop
 
     } // end passwordEntry
+
+    private static void wordCount(Scanner input){
+
+        System.out.println("Please enter a sentence"); // input of sentence
+        String sentence = input.nextLine();
+
+        String fSentence = sentence.replace(',',' ').replace('!',' ').replace('?',' ').replace('.',' ').replace('-',' ').replace(';',' ');
+            // replaces non-letter characters with spaces
+
+        String[] words = fSentence.split("\\s");
+            // splits the sentence based on whitespace
+
+        int numWords = 0;
+        for (String word : words) { if(!word.equals("")) {
+                numWords += 1;
+            }
+        } // for loop increments numWords if the item word from words[] isn't an empty string
+
+        System.out.println(String.format("There were %d words in the sentence.",numWords));
+    } // end of wordCount
 
 }
