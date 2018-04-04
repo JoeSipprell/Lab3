@@ -7,7 +7,8 @@ public class Main {
         Scanner input = new Scanner(System.in);
 
         //passwordEntry(input);
-        wordCount(input);
+        //wordCount(input);
+        phoneNumberGen(input);
 
     }
 
@@ -70,4 +71,35 @@ public class Main {
         System.out.println(String.format("There were %d words in the sentence.",numWords));
     } // end of wordCount
 
+    private static void phoneNumberGen(Scanner input){
+        System.out.println("Please enter a 10 digit phone number, or enter '999' to quit.");
+
+        String numEntered = "";
+        while(!numEntered.equals("999")){
+            numEntered = input.nextLine().trim();
+
+            if(numEntered.equals("999")) { break; }
+
+            if(numEntered.length() == 10){
+                try{
+                    long x = Long.parseLong(numEntered);
+
+                    StringBuilder phoneNum = new StringBuilder(numEntered);
+
+                    phoneNum.insert(0,'(').insert(4,')').insert(8,'-');
+
+                    System.out.println(phoneNum);
+                }
+                catch(NumberFormatException e){
+                    System.err.println("Your input can only have digits!");
+                }
+                finally{
+                    System.out.println("Please enter a 10 digit phone number, or enter '999' to quit.");
+                }
+            }
+            else{
+                System.err.println("Your input needs to be 10 digits long");
+            }
+        }
+    }
 }
